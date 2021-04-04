@@ -1,16 +1,15 @@
 package main.java.hardware;
 
 import com.google.common.base.Stopwatch;
-import main.java.Init;
+import main.java.Drive;
 import main.java.math.Functions;
 import main.java.math.Pose2d;
 import main.java.math.Vector2d;
 import main.java.config.Config;
 
-import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
-public class MecanumDrive{
+public class MecanumDrive {
 
     public DcMotor left_front;
     public DcMotor right_front;
@@ -26,7 +25,7 @@ public class MecanumDrive{
 
     private double distanceMoved = 0;
 
-    private int frame = 0;
+    private int currentFrame = 0;
 
     private enum motor {
         LEFT_FRONT,
@@ -45,7 +44,7 @@ public class MecanumDrive{
 
     public void update() {
 
-        frame++;
+        currentFrame++;
         double velocities[] = new double[4];
 
         velocities[0] = left_front.power;
@@ -101,7 +100,7 @@ public class MecanumDrive{
         if (robot.theta < 0)robot.theta += 360;
         robot.theta %= 360;
 
-        System.out.println("Frame: " + frame + "  Robot X: " + robot.x + " Robot Y: " + robot.y);
+        System.out.println("Frame: " + currentFrame + "  Robot X: " + robot.x + " Robot Y: " + robot.y);
         velocity.x = x_velocity;
         velocity.y = y_velocity;
 
@@ -114,18 +113,18 @@ public class MecanumDrive{
         if (milliseconds == -1) {
             while (true) {
                 update();
-                Init.field.drawRobot(Init.frame, Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66, 600, robot.x), Config.Y_ROBOT_POSITION + (int) Functions.scaleFactor(3.66, 600, robot.y), (int) robot.theta, Vector2d.getMagnitude(velocity), 0);
+                Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66,600,robot.x), Config.Y_ROBOT_POSITION + (int)Functions.scaleFactor(3.66,600,robot.y), (int)robot.theta));
                 Thread.sleep(1000 / (Config.FRAMES_PER_SECOND));
             }
         }
         if (milliseconds == 0) {
             update();
-            Init.field.drawRobot(Init.frame, Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66,600,robot.x), Config.Y_ROBOT_POSITION + (int)Functions.scaleFactor(3.66,600,robot.y), (int)robot.theta, Vector2d.getMagnitude(velocity),0);
-
+            Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66,600,robot.x), Config.Y_ROBOT_POSITION + (int)Functions.scaleFactor(3.66,600,robot.y), (int)robot.theta));
+            Thread.sleep(1000 / (Config.FRAMES_PER_SECOND));
         }
         while (elapsedTime.elapsed(TimeUnit.MILLISECONDS) < milliseconds) {
             update();
-            Init.field.drawRobot(Init.frame, Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66,600,robot.x), Config.Y_ROBOT_POSITION + (int)Functions.scaleFactor(3.66,600,robot.y), (int)robot.theta, Vector2d.getMagnitude(velocity),0);
+            Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66,600,robot.x), Config.Y_ROBOT_POSITION + (int)Functions.scaleFactor(3.66,600,robot.y), (int)robot.theta));
             Thread.sleep(1000 / (Config.FRAMES_PER_SECOND));
         }
     }
