@@ -1,4 +1,4 @@
-package main.java.hardware;
+package main.java.simulator.hardware;
 
 public class DcMotor {
 
@@ -59,7 +59,11 @@ public class DcMotor {
         }
     }
 
-    public void setPosition(double position) {
+    /**
+     * Simulates how an encoder should work
+     * @param position current position of the motor
+     */
+    protected void setPosition(double position) {
         this.position = position;
     }
 

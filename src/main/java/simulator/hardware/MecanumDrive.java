@@ -1,11 +1,11 @@
-package main.java.hardware;
+package main.java.simulator.hardware;
 
 import com.google.common.base.Stopwatch;
-import main.java.Drive;
-import main.java.math.Functions;
-import main.java.math.Pose2d;
-import main.java.math.Vector2d;
-import main.java.config.Config;
+import main.java.teamcode.Drive;
+import main.java.simulator.math.Functions;
+import main.java.simulator.math.Pose2d;
+import main.java.simulator.math.Vector2d;
+import main.java.teamcode.Config;
 
 import java.util.concurrent.TimeUnit;
 
@@ -20,19 +20,11 @@ public class MecanumDrive {
 
     public Pose2d robot = new Pose2d(0,0, 0);
     public Vector2d velocity = new Vector2d(0,0);
-    public double escalar_velocity = 0;
     public double rotation_velocity = 0;
 
     private double distanceMoved = 0;
 
-    private int currentFrame = 0;
 
-    private enum motor {
-        LEFT_FRONT,
-        RIGHT_FRONT,
-        LEFT_BACK,
-        RIGHT_BACK
-    }
 
     public MecanumDrive(DcMotor left_front, DcMotor right_front, DcMotor left_back, DcMotor right_back) {
         this.left_front = left_front;
@@ -42,15 +34,18 @@ public class MecanumDrive {
     }
 
 
+    /**
+     * Updates robot's linear and rotational velocity based on the current power of the four motors. It also updates
+     * robot heading and position
+     */
     public void update() {
 
-        currentFrame++;
-        double velocities[] = new double[4];
+        double[] velocities = new double[4];
 
-        velocities[0] = left_front.power;
-        velocities[1] = right_front.power;
-        velocities[2] = left_back.power;
-        velocities[3] = right_back.power;
+        velocities[0] = Functions.clip(left_front.power, -1, 1);
+        velocities[1] = Functions.clip(right_front.power, -1, 1);
+        velocities[2] = Functions.clip(left_back.power, -1, 1);
+        velocities[3] = Functions.clip(right_back.power, -1, 1);
 
         motors[0] = left_front;
         motors[1] = right_front;
@@ -60,18 +55,13 @@ public class MecanumDrive {
         velocity = Vector2d.rotateVector(getRobotVelocity(velocities), robot.theta);
         rotation_velocity = getRobotRotationVelocity(velocities);
 
+
         double real_x_velocity = Functions.scaleFactor(4.0, Config.VELOCITY_MAX, velocity.x);
         double real_y_velocity = Functions.scaleFactor(4.0, Config.VELOCITY_MAX, velocity.y);
         double real_theta_velocity = Functions.scaleFactor(4.00, Config.HEADING_PER_SECOND_MAX, rotation_velocity);
 
-
-        // No estoy tomando la current velocity
-
-
         updateVariables(real_x_velocity, real_y_velocity, real_theta_velocity);
         updateRobotPosition();
-        //System.out.println("Left Motor Position " + left_front.getCurrentPosition());
-        // 4 == Maximum Velocity
 
 
     }
@@ -87,8 +77,7 @@ public class MecanumDrive {
     }
 
     public void updateVariables(double x_velocity, double y_velocity, double rotation_velocity) {
-        // Velocidad por segundo
-        // 0.5 m/s
+
 
         double lastX = robot.x;
         double lastY = robot.y;
@@ -100,7 +89,7 @@ public class MecanumDrive {
         if (robot.theta < 0)robot.theta += 360;
         robot.theta %= 360;
 
-        System.out.println("Frame: " + currentFrame + "  Robot X: " + robot.x + " Robot Y: " + robot.y);
+        //System.out.println("Frame: " + currentFrame + "  Robot X: " + robot.x + " Robot Y: " + robot.y);
         velocity.x = x_velocity;
         velocity.y = y_velocity;
 

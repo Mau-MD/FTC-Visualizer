@@ -1,8 +1,6 @@
-package main.java.display;
+package main.java.simulator.display;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class Telemetry {
 

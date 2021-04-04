@@ -1,14 +1,14 @@
-package main.java;
+package main.java.teamcode;
 
-import main.java.config.Config;
-import main.java.display.Field;
-import main.java.display.Telemetry;
-import main.java.hardware.DcMotor;
-import main.java.hardware.MecanumDrive;
-import main.java.math.Pose2d;
+import main.java.simulator.display.Field;
+import main.java.simulator.display.Telemetry;
+import main.java.simulator.hardware.DcMotor;
+import main.java.simulator.hardware.MecanumDrive;
+import main.java.simulator.math.Pose2d;
 
 import javax.swing.*;
 
+// yeah don't touch this
 public class Drive {
 
     public static JFrame frame;
@@ -16,7 +16,9 @@ public class Drive {
     public static Telemetry telemetry;
     static MecanumDrive drive = new MecanumDrive(new DcMotor(), new DcMotor(), new DcMotor(), new DcMotor());
 
-
+    /**
+     * Draws initial frame (background and robot), also initializes the telemetry class
+     */
     public static void init() {
         frame = new JFrame("FTC Visualizer");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);

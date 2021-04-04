@@ -1,4 +1,4 @@
-package main.java.math;
+package main.java.simulator.math;
 
 public class Pose2d {
 

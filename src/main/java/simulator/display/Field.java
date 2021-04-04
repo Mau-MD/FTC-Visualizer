@@ -1,8 +1,7 @@
-package main.java.display;
+package main.java.simulator.display;
 
-import main.java.config.Config;
-import main.java.math.Pose2d;
-import org.checkerframework.checker.units.qual.C;
+import main.java.teamcode.Config;
+import main.java.simulator.math.Pose2d;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -12,6 +11,8 @@ import java.awt.geom.Path2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.*;
 import java.util.List;
 
@@ -52,10 +53,24 @@ public class Field extends JPanel {
         main_graphics.setStroke(new BasicStroke(2));
 
         int ROBOT_SIZE = 50;
-        Rectangle robot_outline =  new Rectangle((int) robot.x, (int) robot.y, ROBOT_SIZE, ROBOT_SIZE);
+
         Path2D.Double robotPath = new Path2D.Double();
 
+        // Robot Main Body
+        Rectangle robot_outline =  new Rectangle((int) robot.x, (int) robot.y, ROBOT_SIZE, ROBOT_SIZE);
+
+        // Robot wheels
+        Rectangle left_front_wheel = new Rectangle((int) robot.x - ROBOT_SIZE / 6, (int) robot.y, ROBOT_SIZE / 6, ROBOT_SIZE / 4);
+        Rectangle left_back_wheel = new Rectangle((int) robot.x - ROBOT_SIZE / 6, (int) robot.y + ROBOT_SIZE - ROBOT_SIZE / 4, ROBOT_SIZE / 6, ROBOT_SIZE / 4);
+        Rectangle right_front_wheel = new Rectangle((int) robot.x + ROBOT_SIZE, (int) robot.y, ROBOT_SIZE / 6, ROBOT_SIZE / 4);
+        Rectangle right_back_wheel = new Rectangle((int) robot.x + ROBOT_SIZE , (int) robot.y + ROBOT_SIZE - ROBOT_SIZE / 4, ROBOT_SIZE / 6, ROBOT_SIZE / 4);
+
+
         robotPath.append(robot_outline, false);
+        robotPath.append(left_front_wheel, false);
+        robotPath.append(left_back_wheel,false);
+        robotPath.append(right_front_wheel, false);
+        robotPath.append(right_back_wheel,false);
 
         AffineTransform transform = new AffineTransform();
         transform.rotate(Math.toRadians(robot.theta),
@@ -84,6 +99,7 @@ public class Field extends JPanel {
         main_graphics.draw(headingPath);
         main_graphics.setColor(Color.white);
 
+
         // Draw Telemetry
         if (strings.isEmpty())return;
         for (drawnStrings string : strings) {
@@ -100,7 +116,7 @@ public class Field extends JPanel {
 
         Font font = new Font(Font.SANS_SERIF, Font.BOLD, Config.FONT_SIZE);
 
-        strings.clear();
+        if (!strings.isEmpty())strings.clear();
 
         int i = 0;
 
@@ -109,9 +125,9 @@ public class Field extends JPanel {
         for (Map.Entry<String, Double> entry : data.entrySet()) {
 
             String text = entry.getKey();
-            Double value = entry.getValue();
+            double value = BigDecimal.valueOf(entry.getValue()).setScale(2, RoundingMode.HALF_UP).doubleValue();
 
-            Rectangle centerRect = new Rectangle(0,i * Config.FONT_SIZE, Config.CANVAS_WIDTH, Config.FONT_SIZE );
+            Rectangle centerRect = new Rectangle(0,i * Config.FONT_SIZE * 2, Config.CANVAS_WIDTH, Config.FONT_SIZE * 2);
 
             String finalText = text + ": " + value;
             drawCenteredString(finalText, centerRect, font);

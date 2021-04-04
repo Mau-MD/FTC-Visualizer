@@ -1,7 +1,7 @@
-package main.java;
+package main.java.teamcode;
 
-import main.java.hardware.DcMotor;
-import main.java.hardware.ElapsedTime;
+import main.java.simulator.hardware.DcMotor;
+import main.java.simulator.hardware.ElapsedTime;
 
 public class Main extends Drive {
 
@@ -48,7 +48,6 @@ public class Main extends Drive {
         drive.right_front.setPower(1);
         drive.left_back.setPower(1);
         drive.right_back.setPower(-1);
-
         drive.sleep(3000);
 
         idle();

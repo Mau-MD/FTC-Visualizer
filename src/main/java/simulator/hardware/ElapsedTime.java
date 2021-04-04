@@ -1,9 +1,8 @@
-package main.java.hardware;
+package main.java.simulator.hardware;
 
-import com.google.common.base.Stopwatch;
-
-import java.util.concurrent.TimeUnit;
-
+/**
+ * Simulates how FTC's Elapsed time works by using system time.
+ */
 public class ElapsedTime {
 
     long startingTime;
