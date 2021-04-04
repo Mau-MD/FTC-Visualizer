@@ -19,5 +19,5 @@ There's a Config Class, you should give it a look specially if you want to simul
 Currently the "Main" class has an example that covers almost everything you can do with the simulator. You will get used to really fast because, well, it's almost
 the same as FTC ;)
 
-#Future Updates
+# Future Updates
 Enhaced Telemtry functions that lets you add shapes to the visualizer (specially useful if you want to implement complex path algorithms)
