@@ -7,10 +7,10 @@ public class Main extends Drive {
 
     public static void main (String[] args) throws InterruptedException {
 
-        init();
+        init(); // Do not delete
 
-        // Code goes here -------------------------------------------------------------------------------
-        // Remember to change configurations in config.Config
+        // Your code goes here -------------------------------------------------------------------------------
+        // Remember to change configurations in Config
 
         ElapsedTime time = new ElapsedTime(); // The same reliable FTC Elapsed Time!
         time.reset();
@@ -90,6 +90,7 @@ public class Main extends Drive {
 
     }
 
+    // Function that stops the robot!
     public static void idle() {
         drive.left_front.setPower(0);
         drive.right_front.setPower(0);

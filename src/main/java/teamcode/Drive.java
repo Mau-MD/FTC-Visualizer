@@ -31,6 +31,8 @@ public class Drive {
         frame.setVisible(true);
 
         telemetry = new Telemetry(field);
+
+        System.out.println("Field Image by: u/Strong_Pineapple");
     }
 
     public static JFrame getFrame() {
