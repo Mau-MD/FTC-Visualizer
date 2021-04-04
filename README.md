@@ -2,7 +2,10 @@
 A Visualizer written in Java that lets you see how a standard Mecanum Drivetrain Robot will behave based in some code. This visualizer has been made with the 
 intentation of making custom path functions without needing the physical robot with you. 
 
-![Field Image by: u/Strong_Pineapple](https://user-images.githubusercontent.com/74751751/113522015-51f80e00-9552-11eb-8370-b6cc381b29e5.png)
+| ![Simulator](https://user-images.githubusercontent.com/74751751/113522015-51f80e00-9552-11eb-8370-b6cc381b29e5.png) | 
+|:--:| 
+| *Field Image by: u/Strong_Pineapple* |
+
 
 
 The code has exactly the same syntax as normal FTC, so you should not have any problem programming the virtual robot. 
