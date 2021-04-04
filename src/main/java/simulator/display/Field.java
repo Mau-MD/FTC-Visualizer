@@ -22,7 +22,7 @@ public class Field extends JPanel {
     int height;
     Pose2d robot;
     private List<drawnStrings> strings;
-
+    BufferedImage image = null;
 
     /**
      * Initialize the Field Class
@@ -33,6 +33,12 @@ public class Field extends JPanel {
         strings = new ArrayList<>();
         this.width = width;
         this.height = height;
+
+        try {
+            image = ImageIO.read(new File("src/main/java/simulator/resources/field600px.png"));
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -86,12 +92,7 @@ public class Field extends JPanel {
         headingPath.transform(transform);
 
         // Background
-        BufferedImage image = null;
-        try {
-            image = ImageIO.read(new File("src/main/java/resources/field600px.png"));
-        } catch(IOException e) {
-            e.printStackTrace();
-        }
+
 
         main_graphics.drawImage(image,0,0,null);
         main_graphics.draw(robotPath);

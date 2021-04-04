@@ -1,30 +1,27 @@
-main/java/hardware/ElapsedTime.java
- main.java.hardware.ElapsedTime
-main/java/hardware/DcMotor.java
- main.java.hardware.DcMotor
- main.java.hardware.DcMotor$Direction
- main.java.hardware.DcMotor$ZeroPowerBehavior
-main/java/math/Vector2d.java
- main.java.math.Vector2d
-main/java/math/Vector3d.java
- main.java.math.Vector3d
-main/java/config/Config.java
- main.java.config.Config
-main/java/math/Functions.java
- main.java.math.Functions
-main/java/hardware/TankDrive.java
- main.java.hardware.TankDrive
-main/java/math/Pose2d.java
- main.java.math.Pose2d
-main/java/display/Field.java
- main.java.display.Field
- main.java.display.drawnStrings
-main/java/display/Telemetry.java
- main.java.display.Telemetry
-main/java/hardware/MecanumDrive.java
- main.java.hardware.MecanumDrive
- main.java.hardware.MecanumDrive$motor
-main/java/Main.java
- main.java.Main
-main/java/Drive.java
- main.java.Drive
+main/java/simulator/hardware/DcMotor.java
+ main.java.simulator.hardware.DcMotor
+ main.java.simulator.hardware.DcMotor$Direction
+ main.java.simulator.hardware.DcMotor$ZeroPowerBehavior
+main/java/simulator/math/Functions.java
+ main.java.simulator.math.Functions
+main/java/simulator/math/Vector2d.java
+ main.java.simulator.math.Vector2d
+main/java/teamcode/Config.java
+ main.java.teamcode.Config
+main/java/simulator/math/Pose2d.java
+ main.java.simulator.math.Pose2d
+main/java/simulator/hardware/ElapsedTime.java
+ main.java.simulator.hardware.ElapsedTime
+main/java/simulator/math/Vector3d.java
+ main.java.simulator.math.Vector3d
+main/java/simulator/display/Telemetry.java
+ main.java.simulator.display.Telemetry
+main/java/simulator/hardware/MecanumDrive.java
+ main.java.simulator.hardware.MecanumDrive
+main/java/simulator/display/Field.java
+ main.java.simulator.display.Field
+ main.java.simulator.display.drawnStrings
+main/java/teamcode/Main.java
+ main.java.teamcode.Main
+main/java/teamcode/Drive.java
+ main.java.teamcode.Drive
