@@ -2,6 +2,8 @@
 A Visualizer written in Java that lets you see how a standard Mecanum Drivetrain Robot will behave based in some code. This visualizer has been made with the 
 intentation of making custom path functions without needing the physical robot with you. 
 
+![Captura de Pantalla 2021-04-04 a la(s) 14 30 15](https://user-images.githubusercontent.com/74751751/113522015-51f80e00-9552-11eb-8370-b6cc381b29e5.png)
+
 The code has exactly the same syntax as normal FTC, so you should not have any problem programming the virtual robot. 
 
 It features odometry and encoder and gyro reading, so if you are planning to program pure pursuit or any path follower algorithm, this is your best chance,
