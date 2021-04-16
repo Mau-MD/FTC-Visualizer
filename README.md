@@ -10,7 +10,7 @@ intentation of making custom path functions without needing the physical robot w
 
 The code has exactly the same syntax as normal FTC, so you should not have any problem programming the virtual robot. 
 
-It features odometry and encoder and gyro reading, so if you are planning to program pure pursuit or any path follower algorithm, this is your best chance,
+It features odometry, encoder and gyro reading, so if you are planning to program pure pursuit or any path follower algorithm, this is your best chance,
 because, yet again, you don't need any physical robot with you! It also features Telemetry so you can track exactly what's happening with your robot.
 
 # Installation 
