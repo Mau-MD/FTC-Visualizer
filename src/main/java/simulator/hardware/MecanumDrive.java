@@ -97,27 +97,39 @@ public class MecanumDrive {
     }
 
     public void sleep(int milliseconds) throws InterruptedException {
-        Stopwatch elapsedTime = Stopwatch.createStarted();
+        ElapsedTime time = new ElapsedTime();
+        ElapsedTime frames = new ElapsedTime();
 
+        time.reset();
         if (milliseconds == -1) {
             while (true) {
                 update();
-                Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66,600,robot.x), Config.Y_ROBOT_POSITION + (int)Functions.scaleFactor(3.66,600,robot.y), (int)robot.theta));
-                Thread.sleep(1000 / (Config.FRAMES_PER_SECOND));
+                Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66, 600, robot.x), Config.Y_ROBOT_POSITION + (int) Functions.scaleFactor(3.66, 600, robot.y), (int) robot.theta));
+                frames.reset();
+                while (frames.milliseconds() < 1000 / Config.FRAMES_PER_SECOND) {
+                    // Nothing
+                }
             }
         }
         if (milliseconds == 0) {
             update();
-            Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66,600,robot.x), Config.Y_ROBOT_POSITION + (int)Functions.scaleFactor(3.66,600,robot.y), (int)robot.theta));
-            Thread.sleep(1000 / (Config.FRAMES_PER_SECOND));
+            long paintTime = Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66, 600, robot.x), Config.Y_ROBOT_POSITION + (int) Functions.scaleFactor(3.66, 600, robot.y), (int) robot.theta));
+            System.out.println("Print Time " + paintTime);
+            frames.reset();
+            while (frames.milliseconds() < 1000 / Config.FRAMES_PER_SECOND) {
+                // Nothing
+            }
         }
-        while (elapsedTime.elapsed(TimeUnit.MILLISECONDS) < milliseconds) {
+        while (time.milliseconds() < milliseconds) {
             update();
-            Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66,600,robot.x), Config.Y_ROBOT_POSITION + (int)Functions.scaleFactor(3.66,600,robot.y), (int)robot.theta));
-            Thread.sleep(1000 / (Config.FRAMES_PER_SECOND));
+            long paintTime = Drive.getField().drawRobot(Drive.getFrame(), new Pose2d(Config.X_ROBOT_POSITION + (int) Functions.scaleFactor(3.66, 600, robot.x), Config.Y_ROBOT_POSITION + (int) Functions.scaleFactor(3.66, 600, robot.y), (int) robot.theta));
+            System.out.println("Print Time " + paintTime);
+            frames.reset();
+            while (frames.milliseconds() < 1000 / Config.FRAMES_PER_SECOND) {
+                // Nothing
+            }
         }
     }
-
     private void updateRobotPosition() {
         for (int i=0;i<4;i++) {
             double contrib = motors[i].getPower() * distanceMoved;

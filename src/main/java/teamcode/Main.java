@@ -13,12 +13,12 @@ public class Main extends Drive {
         // Remember to change configurations in Config
 
         ElapsedTime time = new ElapsedTime(); // The same reliable FTC Elapsed Time!
-        time.reset();
 
         drive.left_front.setDirection(DcMotor.Direction.FORWARD); // You can even invert directions!
 
         // Best Method in FTC to "sleep"
-        while (time.milliseconds() < 5000) {
+        time.reset();
+        while (time.milliseconds() < 2000) {
 
             drive.left_front.setPower(1); // Same as FTC
             drive.right_front.setPower(1);
@@ -63,6 +63,7 @@ public class Main extends Drive {
             drive.right_back.setPower(-1);
 
             telemetry.addData("Left Front Position", drive.left_front.getCurrentPosition()); // Encoders!
+            telemetry.addData("Current Time", time.milliseconds());
             telemetry.update();
 
             drive.sleep(0); // Remember to update!

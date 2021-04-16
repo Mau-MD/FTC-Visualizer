@@ -21,7 +21,7 @@ main/java/simulator/hardware/MecanumDrive.java
 main/java/simulator/display/Field.java
  main.java.simulator.display.Field
  main.java.simulator.display.drawnStrings
-main/java/teamcode/Drive.java
- main.java.teamcode.Drive
 main/java/teamcode/Main.java
  main.java.teamcode.Main
+main/java/teamcode/Drive.java
+ main.java.teamcode.Drive

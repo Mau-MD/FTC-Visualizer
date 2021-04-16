@@ -3,6 +3,7 @@ package main.java.teamcode;
 import main.java.simulator.display.Field;
 import main.java.simulator.display.Telemetry;
 import main.java.simulator.hardware.DcMotor;
+import main.java.simulator.hardware.ElapsedTime;
 import main.java.simulator.hardware.MecanumDrive;
 import main.java.simulator.math.Pose2d;
 
@@ -31,6 +32,13 @@ public class Drive {
         frame.setVisible(true);
 
         telemetry = new Telemetry(field);
+
+        System.out.println("Initializing...");
+
+        drive.left_front.setPower(0);
+        drive.right_front.setPower(0);
+        drive.left_back.setPower(0);
+        drive.right_back.setPower(0);
 
         System.out.println("Field Image by: u/Strong_Pineapple");
     }

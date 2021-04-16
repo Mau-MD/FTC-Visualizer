@@ -1,5 +1,6 @@
 package main.java.simulator.display;
 
+import main.java.simulator.hardware.ElapsedTime;
 import main.java.teamcode.Config;
 import main.java.simulator.math.Pose2d;
 
@@ -22,7 +23,10 @@ public class Field extends JPanel {
     int height;
     Pose2d robot;
     private List<drawnStrings> strings;
+    private Font font;
+    FontMetrics metrics;
     BufferedImage image = null;
+    long paintTime;
 
     /**
      * Initialize the Field Class
@@ -33,7 +37,10 @@ public class Field extends JPanel {
         strings = new ArrayList<>();
         this.width = width;
         this.height = height;
+        font = new Font(Font.SANS_SERIF, Font.BOLD, Config.FONT_SIZE);
+        Canvas c = new Canvas(); // I love u Canvas
 
+        metrics = c.getFontMetrics(font);
         try {
             image = ImageIO.read(new File("src/main/java/simulator/resources/field600px.png"));
         } catch(IOException e) {
@@ -48,6 +55,9 @@ public class Field extends JPanel {
      * @param graphic default graphics
      */
     public void paintComponent(Graphics graphic) {
+
+        ElapsedTime time = new ElapsedTime();
+        time.reset();
 
         graphic.clearRect(0, 0, width, height);
 
@@ -107,6 +117,7 @@ public class Field extends JPanel {
             main_graphics.drawString(string.string, (int) string.x, (int) string.y);
         }
 
+        paintTime = time.milliseconds();
     }
 
     /**
@@ -114,8 +125,6 @@ public class Field extends JPanel {
      * @param data hashmap containing all the telemetry data
      */
     public void updateTelemetry(HashMap<String, Double> data) {
-
-        Font font = new Font(Font.SANS_SERIF, Font.BOLD, Config.FONT_SIZE);
 
         if (!strings.isEmpty())strings.clear();
 
@@ -131,7 +140,7 @@ public class Field extends JPanel {
             Rectangle centerRect = new Rectangle(0,i * Config.FONT_SIZE * 2, Config.CANVAS_WIDTH, Config.FONT_SIZE * 2);
 
             String finalText = text + ": " + value;
-            drawCenteredString(finalText, centerRect, font);
+            drawCenteredString(finalText, centerRect);
             i+=1;
         }
     }
@@ -141,10 +150,8 @@ public class Field extends JPanel {
      * This function draws a centered string (lol) based on a rectangle
      * Definitely not stolen from stack overflow
      */
-    public void drawCenteredString(String text,  Rectangle rect, Font font) {
+    public void drawCenteredString(String text,  Rectangle rect) {
 
-        Canvas c = new Canvas(); // I love u Canvas
-        FontMetrics metrics = c.getFontMetrics(font);
 
         int x = rect.x + (rect.width - metrics.stringWidth(text)) / 2;
         int y = rect.y + ((rect.height - metrics.getHeight()) / 2) + metrics.getAscent();
@@ -157,11 +164,13 @@ public class Field extends JPanel {
      * @param frame current frame
      * @param robot Pose2D containing robot info
      */
-    public void drawRobot(JFrame frame, Pose2d robot)
+    public long drawRobot(JFrame frame, Pose2d robot)
     {
         this.robot = robot;
         frame.add(this);
         frame.repaint();
+
+        return paintTime;
     }
 }
 
